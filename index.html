@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <title>Dudukify - Duduk dam sounds and Duduk tuner </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dudukify - Dudukify can help with tuning the Duduk. It can also help with providing Duduk dam tune to help as a background tune.">
+    <meta name="author" content="Peshmerge Morad">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dudukify">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://dudukify.com">
+    <meta property="og:image" content="https://dudukify.com/android-chrome-512x512.png">
+    <meta property="og:title" content="Dudukify - Duduk dam sounds and Duduk tuner">
+    <meta property="og:description" content="Dudukify - Dudukify can help with tuning the Duduk. It can also help with providing Duduk dam tune to help as a background tune.">
+
+    <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#7d31ea">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="theme-color" content="#ffffff">
+    <!-- Favicon -->
+  
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/dist/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <script src="./app.js"></script>
+    <script>
+        function playNote(noteLetter) {
+            // Get the button element based on the passed note letter
+            var buttonElement = document.getElementById('body-' + noteLetter);
+            // Get the note name based on the letter
+            var noteName = 'note-' + noteLetter;
+            var noteElement = document.getElementById(noteName);
+            // Loop through all notes and 1)pause them; 2) remove the glow effect
+            document.querySelectorAll('.playing').forEach(function(element, index) {
+                elementId = element.getAttribute('id');
+                if (elementId !== noteName) {
+                    pauseNote(element, document.getElementById('body-' + elementId.split('-')[1]));
+                }
+            });
+
+            // If the current clicked button is paused, then play it and add glow effect
+            if (noteElement.paused) {
+                noteElement.play();
+                noteElement.classList.add('playing');
+                addGlowStyle(buttonElement);
+            } else {
+                // otherwise pause it and remove the glow effect
+                pauseNote(noteElement, buttonElement);
+            }
+        };
+
+
+        function pauseNote(noteElement, buttonElement) {
+            noteElement.pause();
+            noteElement.currentTime = 0;
+            noteElement.classList.remove('playing');
+            removeGlowStyle(buttonElement);
+        }
+
+        function addGlowStyle(element) {
+            element.style.boxShadow = '0px 0px 6px 4px #f5c011';
+            element.style.animation = 'glow 1.5s linear infinite alternate';
+        }
+
+        function removeGlowStyle(element) {
+            element.style.boxShadow = '';
+            element.style.animation = '';
+        }
+   </script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <div class="container">
+            <a class="navbar-brand" href=".">Dudukify</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container" id="main-container">
+        <div class="row mb-4">
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-e" loop>
+                    <source src="assets/sounds/E.ogg" type="audio/ogg">
+                    <source src="assets/sounds/E.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('e')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-e">
+                            <div class="note-name">E</div>
+                            <p class="note-range">164.8Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-f" loop>
+                    <source src="assets/sounds/F.ogg" type="audio/ogg">
+                    <source src="assets/sounds/F.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('f')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-f">
+                            <div class="note-name">F</div>
+                            <p class="note-range">174.6Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-f_sharp" loop>
+                    <source src="assets/sounds/F_sharp.ogg" type="audio/ogg">
+                    <source src="assets/sounds/F_sharp.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('f_sharp')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-f_sharp">
+                            <div class="note-name">F#</div>
+                            <p class="note-range">185.0Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-g" loop>
+                    <source src="assets/sounds/G.ogg" type="audio/ogg">
+                    <source src="assets/sounds/G.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('g')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-g">
+                            <div class="note-name">G</div>
+                            <p class="note-range">196Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-g_sharp" loop>
+                    <source src="assets/sounds/G_sharp.ogg" type="audio/ogg">
+                    <source src="assets/sounds/G_sharp.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('g_sharp')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-g_sharp">
+                            <div class="note-name">G#</div>
+                            <p class="note-range">207.7Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-a" loop>
+                    <source src="assets/sounds/A.ogg" type="audio/ogg">
+                    <source src="assets/sounds/A.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('a')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-a">
+                            <div class="note-name">A</div>
+                            <p class="note-range">220.0Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+
+        <div class="row mb-4">
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-a_sharp" loop>
+                    <source src="assets/sounds/A_sharp.ogg" type="audio/ogg">
+                    <source src="assets/sounds/A_sharp.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('a_sharp')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-a_sharp">
+                            <div class="note-name">A#</div>
+                            <p class="note-range">233.1Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-b" loop>
+                    <source src="assets/sounds/B.ogg" type="audio/ogg">
+                    <source src="assets/sounds/B.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('b')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-b">
+                            <div class="note-name">B</div>
+                            <p class="note-range">246.9Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-c" loop>
+                    <source src="assets/sounds/C.ogg" type="audio/ogg">
+                    <source src="assets/sounds/C.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('c')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-c">
+                            <div class="note-name">C</div>
+                            <p class="note-range">261.6Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="row mb-4">
+
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-c_sharp" loop>
+                    <source src="assets/sounds/C_sharp.ogg" type="audio/ogg">
+                    <source src="assets/sounds/C_sharp.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('c_sharp')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-c_sharp">
+                            <div class="note-name">C#</div>
+                            <p class="note-range">277.2Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-d" loop>
+                    <source src="assets/sounds/D.ogg" type="audio/ogg">
+                    <source src="assets/sounds/D.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('d')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-d">
+                            <div class="note-name">D</div>
+                            <p class="note-range">146.8Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-4 themed-grid-col g-4 d-flex justify-content-center text-center">
+                <audio class="notes" id="note-d_sharp" loop>
+                    <source src="assets/sounds/D_sharp.ogg" type="audio/ogg">
+                    <source src="assets/sounds/D_sharp.mp3" type="audio/mpeg">
+                </audio>
+                <a onClick="playNote('d_sharp')">
+                    <div class="note text-center">
+                        <div class="note-body" id="body-d_sharp">
+                            <div class="note-name">D#</div>
+                            <p class="note-range">155.6Hz</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
